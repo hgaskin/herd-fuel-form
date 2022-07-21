@@ -60,7 +60,7 @@ function ReservationForm() {
 
   // Submit Form
   // Messy, but it works.
-  const onSubmit = async (uploadData) => {
+  const onSubmitForm = async (uploadData) => {
     console.log(uploadData);
     console.log(uploadData.file.amuseUpload);
     console.log("KEYS:", Object.keys(uploadData.file));
@@ -125,7 +125,10 @@ function ReservationForm() {
       return (
         <button
           className={`mt-6 bg-blue-600 text-white rounded px-8 py-4 w-full disabled:bg-gray-400 disabled:cursor-not-allowed`}
-          onClick={() => setFormStep((curr) => curr + 1)}
+          onClick={() => {
+            setFormStep((curr) => curr + 1);
+            console.log("Next Step");
+          }}
           type={"button"}
           disabled={!isValid}
         >
@@ -142,6 +145,8 @@ function ReservationForm() {
           Submit
         </button>
       );
+    } else {
+      return null;
     }
   };
 
@@ -150,7 +155,10 @@ function ReservationForm() {
     if (formStep > 0 && formStep <= MAX_STEPS) {
       return (
         <button
-          onClick={() => setFormStep((curr) => curr - 1)}
+          onClick={() => {
+            setFormStep((curr) => curr - 1);
+            console.log("Previous Step");
+          }}
           type="button"
           className="mt-6 bg-red-600 text-white rounded px-8 py-4 w-full disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
@@ -187,7 +195,7 @@ function ReservationForm() {
       {/* Form Start  */}
       <div className="max-w-xl w-full mt-20 mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10">
         <div className="px-16 py-10">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmitForm)}>
             <p>
               Step {formStep + 1} of {MAX_STEPS}
             </p>
